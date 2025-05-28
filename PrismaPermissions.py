@@ -11,7 +11,6 @@ SECRET_KEY = "YOUR_SECRET_KEY"    # Replace with your Secret Key
 # Global variable to store the auth token
 TOKEN = ""
 # Delay between individual API calls in seconds.
-# IMPORTANT: With one call per account, this is crucial to avoid rate limiting.
 API_CALL_DELAY = 0.5  # Adjust as needed (0.5 to 1 second is a good start)
 
 # --- Function to handle API Login ---
@@ -73,7 +72,7 @@ def list_cloud_accounts():
         print(f"Error listing accounts: {err}")
     return []
 
-# --- Function to Get Cloud Account Config Status (using the new endpoint) ---
+# --- Function to Get Cloud Account Config Status  ---
 def get_permission_messages_for_accounts(accounts_info_list):
     """
     Fetches config status for each account ID using the /account/{accountId}/config/status endpoint
@@ -107,7 +106,6 @@ def get_permission_messages_for_accounts(accounts_info_list):
             response.raise_for_status() # Will raise an exception for 4xx/5xx errors
             
             # Assuming the direct response from this endpoint is the array of components
-            # (like the samples you provided for AWS and GCP)
             config_status_components = response.json() 
             
             if not isinstance(config_status_components, list) or not config_status_components:
